@@ -1,0 +1,1 @@
+This is a script used for installing eightshift blocks.
