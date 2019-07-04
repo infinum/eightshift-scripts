@@ -1,11 +1,10 @@
-const { fullPath } = require('../setup/files.js');
 const { writeFile, unlinkSync, unlink } = require('fs');
 const { exec } = require('promisify-child-process');
 const del = require('del');
-
 const {
-  eightshiftLibsModuleName,
-} = require('../src/variables.js');
+  files: { fullPath },
+  variables: { eightshiftLibsModuleName },
+} = require('eightshift-scripts');
 
 const {
   composerTimeout,

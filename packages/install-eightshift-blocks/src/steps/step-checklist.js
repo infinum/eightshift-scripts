@@ -1,12 +1,14 @@
-const { fullPath, readdirAsync } = require('../../setup/files.js');
-const { variable } = require('../../setup/misc.js');
-const { exec } = require('promisify-child-process');
 const {
-  eightshiftLibsModuleName,
-  eightshiftBlocksModuleName,
-  eightshiftBlocksPath
-} = require('../variables.js');
+  files: { fullPath, readdirAsync },
+  misc: { variable },
+  variables: {
+    eightshiftLibsModuleName,
+    eightshiftBlocksModuleName,
+    eightshiftBlocksPath
+  },
+} = require('eightshift-scripts');
 
+const { exec } = require('promisify-child-process');
 
 /**
  * Make sure everything is in order.
@@ -37,7 +39,7 @@ const preflightChecklist = async () => {
  */
 const verifyComposerJson = async (fullPath) => {
   const filesInDir = await readdirAsync(fullPath);
-  if ( ! filesInDir.find((file) => file === 'composer.json')) {
+  if (!filesInDir.find((file) => file === 'composer.json')) {
     throw new Error(`Unable to find ${variable('composer.json')} in current folder, this script must be run from your project's folder.`);
   }
   return true;
@@ -62,7 +64,7 @@ const checkIfModuleInstalled = async (moduleName) => {
  */
 const checkIfExampleFolderExists = async (moduleName) => {
   const files = await readdirAsync(eightshiftBlocksPath);
-  if ( ! filesInDir.find((file) => file === 'examples')) {
+  if (!filesInDir.find((file) => file === 'examples')) {
     throw new Error(`Unable to find blocks to extend in ${eightshiftBlocksModuleName} vendor package (${eightshiftBlocksPath}), please contact the lib support.`);
   }
   return true;

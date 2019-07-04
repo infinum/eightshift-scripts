@@ -1,21 +1,13 @@
-// -----------------------------------------
-// Clone block to folder (which folder)
-// -----------------------------------------
+#!/usr/bin/env node
 
-// 1. Pre-flight checklist
-// 1.1. Make sure we're in folder containing 'package.json'
-// 1.2. Make sure that package.json has 'eightshift-blocks' as dependency
-// 1.3. Make sure it's installed in vendors folder and that the 'examples' folder exists
-//
-// 2. Copy block to 'custom' folder
-
-const { installStep } = require('./setup/console.js');
-
-// Steps
 const { clearConsole, writeIntro } = require('./src/steps/step-intro.js');
 const { preflightChecklist } = require('./src/steps/step-checklist.js');
 const { promptForBlock } = require('./src/steps/step-prompt.js');
 const { installBlock, installBlockDependencies } = require('./src/steps/step-install.js');
+const {
+  console: { installStep },
+} = require('eightshift-scripts');
+
 let blockName = '';
 
 const run = async () => {

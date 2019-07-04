@@ -1,12 +1,12 @@
 const { join } = require('path');
-const { readdirAsync } = require('../setup/files');
-const { blockInstallPath, installBlock } = require('../src/steps/step-install');
 const { setupComposer, tearDownComposer, composerTimeout } = require('./bootstrap');
 const del = require('del');
-
 const {
-  eightshiftBlocksModuleName,
-} = require('../src/variables');
+  files: { readdirAsync },
+  variables: { eightshiftBlocksModuleName },
+} = require('eightshift-scripts');
+
+const { blockInstallPath, installBlock } = require('../src/steps/step-install');
 
 describe('When installing new block...', () => {
   beforeEach( async() => {
