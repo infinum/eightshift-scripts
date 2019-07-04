@@ -1,15 +1,15 @@
 {
-  "name": "install-eightshift-block",
+  "name": "eightshift-scripts",
   "version": "0.0.1",
   "author": "Team Eightshift",
   "main": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/infinum/wp-boilerplate.git"
+    "url": "git+https://github.com/infinum/eightshift-scripts"
   },
   "bugs": {
-    "url": "https://github.com/infinum/wp-boilerplate/issues"
+    "url": "https://github.com/infinum/eightshift-scripts/issues"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --mode production",
