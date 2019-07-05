@@ -85,18 +85,18 @@ describe('When specific module IS NOT installed...', () => {
 
 const eightshiftBlocksModule = 'infinum/eightshift-blocks';
 describe('When examples folder exist...', () => {
-  beforeEach( async() => {
-    await setupComposer(eightshiftBlocksModule);
-  }, composerTimeout);
+  // beforeEach( async() => {
+  //   await setupComposer(eightshiftBlocksModule);
+  // }, composerTimeout);
 
-  afterEach( async() => {
-    await tearDownComposer(eightshiftBlocksModule);
-  }, composerTimeout);
+  // afterEach( async() => {
+  //   await tearDownComposer(eightshiftBlocksModule);
+  // }, composerTimeout);
 
-  test('Should confirm examples folder exists', async () => {
-    const response = await checkIfExampleFolderExists(eightshiftBlocksModule);
-    expect(response).toBe(true);
-  });
+  // test('Should confirm examples folder exists', async () => {
+  //   const response = await checkIfExampleFolderExists(eightshiftBlocksModule);
+  //   expect(response).toBe(true);
+  // });
 });
 
 describe('When examples folder DOES NOT exist...', () => {
