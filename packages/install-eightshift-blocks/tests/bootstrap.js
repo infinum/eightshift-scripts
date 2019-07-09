@@ -1,7 +1,7 @@
 const { exec } = require('promisify-child-process');
 const del = require('del');
 
-const composerTimeout = 30000;
+const composerTimeout = 60000;
 
 const setupComposer = async(moduleName) => {
   await exec('composer init --no-interaction --stability="dev"');

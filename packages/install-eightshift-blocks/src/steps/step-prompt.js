@@ -1,8 +1,11 @@
 const inquirer = require('inquirer');
 const { join } = require('path');
-const { log, variable } = require('../../setup/misc.js');
 const { exec } = require('promisify-child-process');
-const { eightshiftBlocksModuleName } = require('../variables.js')
+
+const {
+  misc: { log, variable },
+} = require('eightshift-scripts');
+
 
 const availableBlocks = [
   'Block 1',

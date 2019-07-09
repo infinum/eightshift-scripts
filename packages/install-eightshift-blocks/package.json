@@ -1,6 +1,6 @@
 {
-  "name": "eightshift-scripts",
-  "version": "0.0.4",
+  "name": "install-eightshift-blocks",
+  "version": "0.0.6",
   "author": "Team Eightshift",
   "main": "",
   "license": "MIT",
@@ -15,9 +15,13 @@
     "build": "cross-env NODE_ENV=production webpack --progress --mode production",
     "test": "jest"
   },
+  "bin": {
+    "install-eightshift-blocks": "./install-eightshift-blocks.js"
+  },
   "dependencies": {
     "chalk": "^2.4.1",
     "cross-env": "^5.2.0",
+    "eightshift-scripts": "0.0.4",
     "figlet": "^1.2.3",
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.1",

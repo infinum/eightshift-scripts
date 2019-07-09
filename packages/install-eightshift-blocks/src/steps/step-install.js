@@ -1,8 +1,10 @@
 const { copy } = require('fs-extra');
 const { join } = require('path');
 const { exec } = require('promisify-child-process');
-const blockInstallPath = join('blocks/custom');
-const { eightshiftBlocksModuleName, eightshiftBlocksPath } = require('../variables.js');
+const blockInstallPath = join('src/blocks/custom');
+const {
+  variables: { eightshiftBlocksModuleName, eightshiftBlocksPath }
+} = require('eightshift-scripts');
 
 /**
  * Copy the block from the vendor folder to the user's folder
