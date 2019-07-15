@@ -1,88 +1,94 @@
 #!/usr/bin/env node
 
-const { clearConsole, writeIntro } = require('./src/steps/step-intro.js');
-const { preflightChecklist } = require('./src/steps/step-checklist.js');
-const { promptForBlock } = require('./src/steps/step-prompt.js');
+
+const path = require('path');
+const { scriptArguments } = require('./src/arguments');
+const { searchReplace } = require('./src/search-replace')
 const {
-  console: { installStep },
+  console: {
+    installStep,
+    clearConsole
+  },
   commandLine: {
-    cloneRepo,
+    cloneRepoTo,
     installNodeDependencies,
     installComposerDependencies,
     updateComposerAutoloader,
     buildAssets,
     wpCoreDownload,
   },
-} = require('eightshift-scripts');
+  arguments: { maybePrompt },
+  files: { fullPath },
+// } = require('eightshift-scripts');
+} = require('../../index.js');
 
 const run = async () => {
 
-  await installStep({
-    describe: 'Running some checks to see if we can proceed...',
-    thisHappens: preflightChecklist(),
-    isFatal: true,
-  });
+  // await installStep({
+  //   describe: 'Running some checks to see if we can proceed...',
+  //   thisHappens: preflightChecklist(),
+  //   isFatal: true,
+  // });
 
   await clearConsole();
-  await writeIntro();
 
-  const proptedInfo = await promptAll();
-  const processedInfo = await processedInfo(proptedInfo);
+  const promptedInfo = await maybePrompt( scriptArguments );
+  const newPath = path.join(fullPath, promptedInfo.folderName);
 
   await installStep({
-    describe: '2. Cloning theme repo',
-    thisHappens: cloneRepo( processedInfo.gitClone ),
+    describe: '1. Cloning theme repo',
+    thisHappens: cloneRepoTo(newPath),
     isFatal: true,
   });
 
   await installStep({
-    describe: '3. Installing Node dependencies',
-    thisHappens: installNodeDependencies(),
+    describe: '2. Installing Node dependencies',
+    thisHappens: installNodeDependencies(newPath),
     isFatal: true,
   });
 
   await installStep({
-    describe: '4. Installing Composer dependencies',
-    thisHappens: installComposerDependencies(),
+    describe: '3. Installing Composer dependencies',
+    thisHappens: installComposerDependencies(newPath),
     isFatal: true,
   });
 
   await installStep({
-    describe: '5. Replacing theme info',
-    thisHappens: preflightChecklist(),
+    describe: '4. Replacing theme info',
+    thisHappens: searchReplace(promptedInfo),
     isFatal: true,
   });
 
   await installStep({
-    describe: '6. Updating composer autoloader',
-    thisHappens: updateComposerAutoloader(),
+    describe: '5. Updating composer autoloader',
+    thisHappens: updateComposerAutoloader(newPath),
     isFatal: true,
   });
 
   await installStep({
-    describe: '7. Building assets',
-    thisHappens: buildAssets(),
+    describe: '6. Building assets',
+    thisHappens: buildAssets(newPath),
     isFatal: true,
   });
 
   await installStep({
-    describe: '8. Installing WordPress core',
-    thisHappens: wpCoreDownload(),
+    describe: '7. Installing WordPress core',
+    thisHappens: wpCoreDownload(newPath),
     isFatal: true,
   });
 
-  await installStep({
-    describe: '9. Cleaning up',
-    thisHappens: cleanup(),
-    isFatal: true,
-  });
+  // await installStep({
+  //   describe: '8. Cleaning up',
+  //   thisHappens: cleanup(),
+  //   isFatal: true,
+  // });
 
-  await installSuccess({
-    describe: 'title',
-    details: () => {
-      log('Please visit your local site to finalize WordPress installation.');
-    },
-  });
+  // await installSuccess({
+  //   describe: 'title',
+  //   details: () => {
+  //     log('Please visit your local site to finalize WordPress installation.');
+  //   },
+  // });
 }
 
 run();

@@ -10,7 +10,7 @@ const fullPath = path.join(process.cwd());
  * @param {string} findString
  * @param {string} replaceString
  */
-const findReplace = async(pathToFolder, findString, replaceString) => {
+const findReplace = async (pathToFolder, findString, replaceString) => {
   const regex = new RegExp(findString, 'g');
   const options = {
     files: `${pathToFolder}/**/*`,
@@ -37,20 +37,18 @@ const findReplace = async(pathToFolder, findString, replaceString) => {
  *
  * @param {string} path
  */
-const readdirAsync = async(path) => {
-  return new Promise(function (resolve, reject) {
-    fs.readdir(path, function (error, result) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
+const readdirAsync = async dirPath => new Promise((resolve, reject) => {
+  fs.readdir(dirPath, (error, result) => {
+    if (error) {
+      reject(error);
+    } else {
+      resolve(result);
+    }
   });
-}
+});
 
 module.exports = {
   fullPath,
   findReplace,
-  readdirAsync
-}
+  readdirAsync,
+};

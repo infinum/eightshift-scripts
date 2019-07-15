@@ -93,10 +93,18 @@ const promptData = async(whatToPromptFor) => {
   return data;
 };
 
+/**
+ * Empties the console.
+ */
+const clearConsole = async () => {
+  process.stdout.write('\033c'); // eslint-disable-line
+}
+
 module.exports = {
   promptFor,
   installStep,
   installStepFinal,
-  promptData
+  promptData,
+  clearConsole
 }
 

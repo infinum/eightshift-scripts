@@ -1,32 +1,34 @@
 
 const { exec } = require('promisify-child-process');
 
-const cloneRepo = async(cloneCommand, folderPath) => {
-  return await exec(`${processedInfo.gitClone} && cd "${folderPath}"`);
+const cloneRepoTo = async(folderName) => {
+  return await exec(
+    `git clone git@github.com:infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}
+  `);
 }
 
-const installNodeDependencies = async() => {
-  return await exec('npm install');
+const installNodeDependencies = async(folderName) => {
+  return await exec(`cd ${folderName} && npm install`);
 }
 
-const installComposerDependencies = async() => {
-  return await exec('composer install --ignore-platform-reqs');
+const installComposerDependencies = async(folderName) => {
+  return await exec(`cd ${folderName} && composer install --ignore-platform-reqs`);
 }
 
-const updateComposerAutoloader = async() => {
-  return await exec('composer -o dump-autoload');
+const updateComposerAutoloader = async(folderName) => {
+  return await exec(`cd ${folderName} && composer -o dump-autoload`);
 }
 
-const buildAssets = async() => {
-  return await exec('npm run build');
+const buildAssets = async(folderName) => {
+  return await exec(`cd ${folderName} && npm run build`);
 }
 
-const wpCoreDownload = async() => {
-  return await exec('wp core download');
+const wpCoreDownload = async(folderName) => {
+  return await exec(`cd ${folderName} && wp core download`);
 }
 
 module.exports = {
-  cloneRepo,
+  cloneRepoTo,
   installNodeDependencies,
   installComposerDependencies,
   updateComposerAutoloader,
