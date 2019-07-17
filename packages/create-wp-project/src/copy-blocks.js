@@ -1,14 +1,12 @@
 const { join } = require('path');
 const { copy } = require('fs-extra');
 
-const copyBlocksFolder = async (projectPath, themePath) => {
+const copyBlocksFolder = async (projectPath) => {
   const sourcePath = join(projectPath, 'vendor', 'infinum', 'eightshift-blocks', 'blocks');
-  const targetPath = join(themePath, 'src', 'blocks');
+  const targetPath = join(projectPath, 'wp-content', 'themes', 'eightshift-boilerplate', 'src', 'blocks');
 
   // Copy folder
-  await copy(sourcePath, targetPath, (err) => {
-    if (err) throw new Error(err);
-  });
+  await copy(sourcePath, targetPath);
 };
 
 module.exports = {

@@ -92,7 +92,7 @@ const searchReplace = async (data) => {
 
   // Themen name and version constants in blocks
   await findReplace(themePath, 'return THEME_NAME;', `return ${data.prefix}_THEME_NAME;`);
-  await findReplace(themePath, 'return ES_THEME_VERSION;', `return ${data.prefix}_THEME_VERSION;`);
+  await findReplace(themePath, 'return THEME_VERSION;', `return ${data.prefix}_THEME_VERSION;`);
 };
 
 module.exports = {

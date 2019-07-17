@@ -25,29 +25,10 @@ const {
 
 const run = async () => {
 
-  // await installStep({
-  //   describe: 'Running some checks to see if we can proceed...',
-  //   thisHappens: preflightChecklist(),
-  //   isFatal: true,
-  // });
-
   await clearConsole();
 
-  // const promptedInfo = await maybePrompt( scriptArguments );
-
-  const promptedInfo = {
-    projectName: 'Public',
-    devUrl: 'eightshift-internal-boilerplate.loca',
-    description: 'JSdjasdasdjahd jashdajsdhajdhj',
-    package: 'public',
-    namespace: 'Public_Namespace',
-    prefix: 'PUB',
-    env: 'PUB_ENV',
-    assetManifest: 'PUB_ASSETS_MANIFEST'
-  }
-
+  const promptedInfo = await maybePrompt( scriptArguments );
   const projectPath = path.join(fullPath, promptedInfo.package);
-  const themePath = path.join(projectPath, 'wp-content', 'themes', promptedInfo.package);
 
   await installStep({
     describe: '1. Cloning theme repo',
@@ -63,7 +44,7 @@ const run = async () => {
 
   await installStep({
     describe: '3. Installing blocks',
-    thisHappens: copyBlocksFolder(projectPath, themePath),
+    thisHappens: copyBlocksFolder(projectPath),
     isFatal: true,
   });
 

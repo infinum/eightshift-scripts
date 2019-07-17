@@ -39,7 +39,8 @@ const maybePrompt = async (scriptArguments) => {
         const { how, name } = argument.buildFrom;
         answers = { ...answers, [argument.name]: how(answers[name]) };
       } else {
-        const promptAnswer = await inquirer.prompt(argument); // eslint-disable-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop
+        const promptAnswer = await inquirer.prompt(argument);
         answers = { ...answers, ...promptAnswer };
       }
     }
