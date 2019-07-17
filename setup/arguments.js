@@ -7,21 +7,21 @@ const { log, label } = require('./misc');
  *
  * @param {array} answers Array of user-provided answers.
  */
-const summary = async( answers ) => {
+const summary = async (answers) => {
   log('');
   log(label('Summary: '));
-  for (answerKey in answers) {
-    log(`- ${answerKey}: ${chalk.cyan(answers[answerKey])}`);
-  }
+  Object.keys(answers).forEach((key) => {
+    log(`- ${key}: ${chalk.cyan(answers[key])}`);
+  });
 
   const { confirmSummary } = await inquirer.prompt({
     name: 'confirmSummary',
     type: 'confirm',
-    message: 'Looks good?'
+    message: 'Looks good?',
   });
 
   return confirmSummary;
-}
+};
 
 /**
  * Should prompt the user for all scriptArguments.
@@ -30,27 +30,27 @@ const summary = async( answers ) => {
  *
  * @param {array} scriptArguments Array of defined script arguments.
  */
-const maybePrompt = async ( scriptArguments ) => {
+const maybePrompt = async (scriptArguments) => {
   let answers = {};
   let confirm = false;
   do {
-    for (argument of scriptArguments) {
+    for (const argument of scriptArguments) { // eslint-disable-line no-restricted-syntax
       if (argument.buildFrom) {
         const { how, name } = argument.buildFrom;
         answers = { ...answers, [argument.name]: how(answers[name]) };
       } else {
-        const promptAnswer = await inquirer.prompt(argument);
+        const promptAnswer = await inquirer.prompt(argument); // eslint-disable-line no-await-in-loop
         answers = { ...answers, ...promptAnswer };
       }
     }
 
-    confirm = await summary(answers);
+    confirm = await summary(answers); // eslint-disable-line no-await-in-loop
     log('');
   } while (confirm !== true);
 
   return answers;
-}
+};
 
 module.exports = {
-  maybePrompt
-}
+  maybePrompt,
+};

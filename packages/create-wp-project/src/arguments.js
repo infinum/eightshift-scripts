@@ -6,7 +6,7 @@ const scriptArguments = [
   },
   {
     type: 'text',
-    name: 'devUrl',
+    name: 'url',
     message: 'Your dev url (e.g. dev.wordpress.com):',
   },
   {
@@ -20,17 +20,18 @@ const scriptArguments = [
     message: 'Please specify the package name (e.g. package_name):',
     buildFrom: {
       name: 'projectName',
-      how: sourceArg => sourceArg.toLowerCase().split(' ').join('_'),
-    }
+      how: sourceArg => sourceArg.toLowerCase().split(' ').join('-'),
+    },
   },
   {
     type: 'text',
-    name: 'folderName',
-    message: 'Please specify the folder name (e.g. folder-name):',
+    name: 'namespace',
+    message: 'Please specify the namespace name (e.g. Package_Name):',
     buildFrom: {
       name: 'projectName',
-      how: (sourceArg) => sourceArg.toLowerCase().split(' ').join('-'),
-    }
+      how: sourceArg => sourceArg.charAt(0).toUpperCase() + sourceArg.slice(1).split(' ').join('_'),
+      // how: sourceArg => sourceArg.toLowerCase().split(' ').join('-'),
+    },
   },
   {
     type: 'text',

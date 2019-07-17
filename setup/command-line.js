@@ -1,31 +1,18 @@
 
 const { exec } = require('promisify-child-process');
 
-const cloneRepoTo = async(folderName) => {
-  return await exec(
-    `git clone git@github.com:infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}
-  `);
-}
+// Required because `npm run build` sometimes throws an error:
+// RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stderr maxBuffer length exceeded
+const maxBuffer = 500 * 1024;
 
-const installNodeDependencies = async(folderName) => {
-  return await exec(`cd ${folderName} && npm install`);
-}
-
-const installComposerDependencies = async(folderName) => {
-  return await exec(`cd ${folderName} && composer install --ignore-platform-reqs`);
-}
-
-const updateComposerAutoloader = async(folderName) => {
-  return await exec(`cd ${folderName} && composer -o dump-autoload`);
-}
-
-const buildAssets = async(folderName) => {
-  return await exec(`cd ${folderName} && npm run build`);
-}
-
-const wpCoreDownload = async(folderName) => {
-  return await exec(`cd ${folderName} && wp core download`);
-}
+const cloneRepoTo = async folderName => exec(
+  `git clone git@github.com:infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}`,
+);
+const installNodeDependencies = async folderName => exec(`cd ${folderName} && npm install`);
+const installComposerDependencies = async folderName => exec(`cd ${folderName} && composer install --ignore-platform-reqs`);
+const updateComposerAutoloader = async folderName => exec(`cd ${folderName} && composer -o dump-autoload`);
+const buildAssets = async folderName => exec(`cd ${folderName} && npm run build`, { maxBuffer });
+const wpCoreDownload = async folderName => exec(`cd ${folderName} && wp core download`);
 
 module.exports = {
   cloneRepoTo,
@@ -34,4 +21,4 @@ module.exports = {
   updateComposerAutoloader,
   buildAssets,
   wpCoreDownload,
-}
+};

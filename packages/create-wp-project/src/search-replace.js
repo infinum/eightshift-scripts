@@ -6,45 +6,40 @@ const {
   files: {
     findReplace,
     fullPath,
+    rename,
   },
   // } = require('eightshift-scripts');
 } = require('../../../index.js');
 
 const defaultValues = {
-  themeFolderName: 'eightshift-boilerplate',
   name: 'Eightshift Boilerplate Internal',
-  package: 'eightshift_boilerplate',
+  package: 'eightshift-boilerplate',
   namespace: 'Eightshift_Boilerplate',
   env: 'ES_ENV',
   manifest: 'ES_ASSETS_MANIFEST',
 };
 
 const searchReplace = async (data) => {
-  const projectPath = path.join(fullPath, data.folderName);
-  const themePath = path.join(projectPath, 'wp-content', 'themes', defaultValues.themeFolderName);
+  const projectPath = path.join(fullPath, data.package);
+  const oldThemePath = path.join(projectPath, 'wp-content', 'themes', defaultValues.package);
+  const themePath = path.join(projectPath, 'wp-content', 'themes', data.package);
 
   // Replace theme name
-
-  // Folder name
-  if (data.folderName) {
-    await replace({
-      files: path.join(projectPath, 'webpack', 'config.js'),
-      from: defaultValues.folderName,
-      to: projectPath,
-    });
+  if (data.package) {
+    await rename(oldThemePath, themePath);
   }
 
   // Name
-  if (data.name) {
+  if (data.projectName) {
     await replace({
       files: path.join(themePath, 'functions.php'),
       from: /^ \* Theme Name:.*$/m,
-      to: ` * Theme Name: ${data.name}`,
+      to: ` * Theme Name: ${data.projectName}`,
     });
     await replace({
       files: path.join(themePath, 'style.css'),
       from: /^Theme Name: .*$/m,
-      to: `Theme Name: ${data.name}`,
+      to: `Theme Name: ${data.projectName}`,
     });
   }
 
@@ -90,6 +85,14 @@ const searchReplace = async (data) => {
       to: `proxyUrl: '${data.url}',`,
     });
   }
+
+  // Theme name and theme version
+  await findReplace(themePath, 'ES_THEME_NAME', `${data.prefix}_THEME_NAME`);
+  await findReplace(themePath, 'ES_THEME_VERSION', `${data.prefix}_THEME_VERSION`);
+
+  // Themen name and version constants in blocks
+  await findReplace(themePath, 'return THEME_NAME;', `return ${data.prefix}_THEME_NAME;`);
+  await findReplace(themePath, 'return ES_THEME_VERSION;', `return ${data.prefix}_THEME_VERSION;`);
 };
 
 module.exports = {
