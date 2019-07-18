@@ -7,8 +7,7 @@ const maxBuffer = 500 * 1024;
 
 const cloneRepoTo = async (folderName) => {
   const command = `git clone https://github.com/infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}`;
-  console.log('Command: ', command);
-  return await exec(command);
+  return exec(command);
 };
 const installNodeDependencies = async folderName => exec(`cd ${folderName} && npm install`);
 const installComposerDependencies = async folderName => exec(`cd ${folderName} && composer install --ignore-platform-reqs`);
