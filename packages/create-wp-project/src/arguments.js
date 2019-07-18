@@ -30,7 +30,6 @@ const scriptArguments = [
     buildFrom: {
       name: 'projectName',
       how: sourceArg => sourceArg.charAt(0).toUpperCase() + sourceArg.slice(1).split(' ').join('_'),
-      // how: sourceArg => sourceArg.toLowerCase().split(' ').join('-'),
     },
   },
   {
@@ -40,7 +39,6 @@ const scriptArguments = [
     buildFrom: {
       name: 'projectName',
       how: (sourceArg) => {
-
         // Build prefix from theme name using one of 2 methods.
         // 1. If theme name has 2 or mor more words, use first letters of each word
         let prefix = '';
@@ -58,7 +56,7 @@ const scriptArguments = [
 
         return prefix;
       },
-    }
+    },
   },
   {
     type: 'text',
@@ -66,8 +64,8 @@ const scriptArguments = [
     message: 'Please specify the env variable name (e.g. INF_ENV):',
     buildFrom: {
       name: 'prefix',
-      how: (sourceArg) => `${sourceArg}_ENV`,
-    }
+      how: sourceArg => `${sourceArg}_ENV`,
+    },
   },
   {
     type: 'text',
@@ -75,11 +73,11 @@ const scriptArguments = [
     message: 'Please specify the assetManifest name (e.g. INF_ASSETS_MANIFEST):',
     buildFrom: {
       name: 'prefix',
-      how: (sourceArg) => `${sourceArg}_ASSETS_MANIFEST`,
-    }
-  }
+      how: sourceArg => `${sourceArg}_ASSETS_MANIFEST`,
+    },
+  },
 ];
 
 module.exports = {
-  scriptArguments
-}
+  scriptArguments,
+};

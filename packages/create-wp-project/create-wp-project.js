@@ -29,11 +29,6 @@ const run = async () => {
   await clearConsole();
 
   const promptedInfo = await maybePrompt( scriptArguments );
-  // const promptedInfo = {
-  //   projectName: 'Test Tema 1',
-  //   package: 'test-tema-1'
-  // };
-
   const projectPath = path.join(fullPath, promptedInfo.package);
 
   await installStep({
