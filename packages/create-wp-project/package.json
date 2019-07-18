@@ -1,7 +1,7 @@
 {
   "name": "create-wp-project",
   "description": "This is a setup script for creating a WordPress project.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Team Eightshift",
   "main": "",
   "license": "MIT",
@@ -34,10 +34,10 @@
     "ora": "^3.0.0",
     "promisify-child-process": "^2.1.2",
     "prompt-sync": "^4.1.6",
-    "replace-in-file": "^3.4.2"
+    "replace-in-file": "^3.4.2",
+    "del": "^5.0.0"
   },
   "devDependencies": {
-    "del": "^5.0.0",
     "jest": "^24.8.0"
   }
 }
