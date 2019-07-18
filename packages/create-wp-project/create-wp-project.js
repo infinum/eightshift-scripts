@@ -4,7 +4,8 @@
 const path = require('path');
 const { scriptArguments } = require('./src/arguments');
 const { searchReplace } = require('./src/search-replace');
-const { copyBlocksFolder } = require('./src/copy-blocks')
+const { copyBlocksFolder } = require('./src/copy-blocks');
+const { cleanup } = require('./src/cleanup');
 const {
   console: {
     installStep,
@@ -28,11 +29,16 @@ const run = async () => {
   await clearConsole();
 
   const promptedInfo = await maybePrompt( scriptArguments );
+  // const promptedInfo = {
+  //   projectName: 'Test Tema 1',
+  //   package: 'test-tema-1'
+  // };
+
   const projectPath = path.join(fullPath, promptedInfo.package);
 
   await installStep({
     describe: '1. Cloning theme repo',
-    thisHappens: cloneRepoTo(projectPath),
+    thisHappens: cloneRepoTo('https://github.com/infinum/eightshift-boilerplate-internal.git', projectPath),
     isFatal: true,
   });
 
@@ -78,11 +84,11 @@ const run = async () => {
     isFatal: true,
   });
 
-  // await installStep({
-  //   describe: '9. Cleaning up',
-  //   thisHappens: cleanup(),
-  //   isFatal: true,
-  // });
+  await installStep({
+    describe: '9. Cleaning up',
+    thisHappens: cleanup(projectPath),
+    isFatal: true,
+  });
 
   log('----------------');
   log('Success!!!');
