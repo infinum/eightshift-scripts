@@ -20,8 +20,8 @@ const {
   },
   arguments: { maybePrompt },
   files: { fullPath },
-// } = require('eightshift-scripts');
-} = require('../../index.js');
+  misc: { log }
+} = require('eightshift-scripts');
 
 const run = async () => {
 
@@ -84,10 +84,16 @@ const run = async () => {
   //   isFatal: true,
   // });
 
+  log('----------------');
+  log('Success!!!');
+  log('');
+  log('Please visit your local site url to finalize WordPress installation. After you\'ve installed WordPress, please activate your new theme and you\'re good to go!');
+  log('----------------');
+
   // await installSuccess({
   //   describe: 'title',
   //   details: () => {
-  //     log('Please visit your local site to finalize WordPress installation. After you\'ve installed WordPress, please activate your new theme and you\'re good to go!);
+  //     log('Please visit your local site to finalize WordPress installation. After you\'ve installed WordPress, please activate your new theme and you\'re good to go!');
   //   },
   // });
 }

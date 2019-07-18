@@ -5,9 +5,11 @@ const { exec } = require('promisify-child-process');
 // RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stderr maxBuffer length exceeded
 const maxBuffer = 500 * 1024;
 
-const cloneRepoTo = async folderName => exec(
-  `git clone git@github.com:infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}`,
-);
+const cloneRepoTo = async (folderName) => {
+  const command = `git clone https://github.com/infinum/eightshift-boilerplate-internal.git ${folderName} && cd ${folderName}`;
+  console.log('Command: ', command);
+  return await exec(command);
+};
 const installNodeDependencies = async folderName => exec(`cd ${folderName} && npm install`);
 const installComposerDependencies = async folderName => exec(`cd ${folderName} && composer install --ignore-platform-reqs`);
 const updateComposerAutoloader = async folderName => exec(`cd ${folderName} && composer -o dump-autoload`);

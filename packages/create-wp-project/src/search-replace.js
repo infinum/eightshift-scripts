@@ -8,8 +8,7 @@ const {
     fullPath,
     rename,
   },
-  // } = require('eightshift-scripts');
-} = require('../../../index.js');
+} = require('eightshift-scripts');
 
 const defaultValues = {
   name: 'Eightshift Boilerplate Internal',
