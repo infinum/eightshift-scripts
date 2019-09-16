@@ -19,9 +19,8 @@ const defaultValues = {
 };
 
 const searchReplace = async (data) => {
-  const projectPath = path.join(fullPath, data.package);
-  const oldThemePath = path.join(projectPath, 'wp-content', 'themes', defaultValues.package);
-  const themePath = path.join(projectPath, 'wp-content', 'themes', data.package);
+  const oldThemePath = path.join(fullPath, 'wp-content', 'themes', defaultValues.package);
+  const themePath = path.join(fullPath, 'wp-content', 'themes', data.package);
 
   // Replace theme name
   if (data.package) {
@@ -58,28 +57,28 @@ const searchReplace = async (data) => {
 
   // Package
   if (data.package) {
-    await findReplace(projectPath, defaultValues.package, data.package);
+    await findReplace(fullPath, defaultValues.package, data.package);
   }
 
   // Namespace
   if (data.namespace) {
-    await findReplace(projectPath, defaultValues.namespace, data.namespace);
+    await findReplace(fullPath, defaultValues.namespace, data.namespace);
   }
 
   // env
   if (data.env) {
-    await findReplace(projectPath, defaultValues.env, data.env);
+    await findReplace(fullPath, defaultValues.env, data.env);
   }
 
   // assetManifest
   if (data.manifest) {
-    await findReplace(projectPath, defaultValues.manifest, data.manifest);
+    await findReplace(fullPath, defaultValues.manifest, data.manifest);
   }
 
   // BrowserSync proxy url.
   if (data.url) {
     await replace({
-      files: path.join(projectPath, 'webpack', 'config.js'),
+      files: path.join(fullPath, 'webpack', 'config.js'),
       from: /proxyUrl: .*$/m,
       to: `proxyUrl: '${data.url}',`,
     });
